@@ -1,36 +1,77 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio v3
 
-## Getting Started
+Editorial portfolio rebuild for Grigorii: a hybrid operator / builder profile with three public case studies, typed local content, and a Vercel-ready Next.js App Router setup.
 
-First, run the development server:
+## Stack
+
+- Next.js 16 App Router
+- TypeScript
+- `motion` for scroll/load animation
+- CSS Modules + global design tokens
+- Local typed content in `src/content/site-content.ts`
+
+## Local development
+
+```bash
+npm install
+cp .env.example .env.local
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000).
+
+## Available scripts
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run lint
+npm run lint:fix
+npm run typecheck
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Content and structure
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- Home page: `src/app/page.tsx`
+- Case study routes: `src/app/cases/[slug]/page.tsx`
+- Content model: `src/content/site-content.ts`
+- Shared motion/UI pieces: `src/components/portfolio`
+- Static case visuals: `public/images/cases`
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Deployment on Vercel
 
-## Learn More
+1. Push this repo to GitHub.
+2. Import the repo into Vercel.
+3. Set `NEXT_PUBLIC_SITE_URL` in Vercel to the final production URL.
+   Example: `https://your-domain.com`
+4. Run the first production deploy.
+5. If you attach a custom domain later, update `NEXT_PUBLIC_SITE_URL` and redeploy.
 
-To learn more about Next.js, take a look at the following resources:
+The app also falls back to Vercel system URLs for previews, but the production domain should still be set explicitly through `NEXT_PUBLIC_SITE_URL`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Push checklist
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+git add .
+git commit -m "feat: launch portfolio v3"
+git branch -M main
+git remote add origin <your-repo-url>
+git push -u origin main
+```
 
-## Deploy on Vercel
+## Pre-deploy QA
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `npm run lint`
+- `npm run typecheck`
+- `npm run build`
+- Check `/`
+- Check `/cases/darkest-afk`
+- Check `/cases/dig-dig-die`
+- Check `/cases/vacation-cafe`
+- Check `/robots.txt` and `/sitemap.xml`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## Notes
+
+- Canonical metadata, `robots.txt`, and `sitemap.xml` are generated from the configured site URL.
+- Root Open Graph and Twitter images are generated with Next.js metadata file conventions.
+- English is the shipped locale in v1, but the content shape is ready to expand later.
