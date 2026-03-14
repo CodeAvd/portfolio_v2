@@ -627,26 +627,20 @@ export const siteContent: SiteContent = {
   nav: [
     { label: "Work", href: "#cases" },
     { label: "Systems", href: "#builds" },
-    { label: "Approach", href: "#approach" },
+    { label: "Fit", href: "#strengths" },
     { label: "Resume", href: "/resume" },
     { label: "Contact", href: "#contact" },
   ],
   hero: {
     eyebrow: "( SUPPORT-FIRST, SYSTEMS-SHAPED )",
-    title:
-      "AI-enabled support systems operator for technical support, escalation, and workflow automation.",
+    title: "Support systems that scale.",
     description:
       "Support-first by training, systems-first in execution. I reduce repeated ticket noise, build operator tooling, and package customer signals into artifacts product, QA, and ops teams can actually use.",
     positioning:
-      "Support Operations / Technical Support Specialist with AI automation and workflow systems leverage.",
+      "Support Operations / Technical Support Specialist with AI automation and workflow systems leverage. Remote-ready.",
     ctas: [
       { label: "View case studies", href: "#cases", variant: "primary" },
       { label: "Open resume", href: "/resume", variant: "secondary" },
-      {
-        label: "GitHub profile",
-        href: "https://github.com/CodeAvd",
-        variant: "secondary",
-      },
     ],
     availability:
       "Remote-first and interview-ready for support ops, technical support, incident-heavy support, and AI-adjacent operations roles.",

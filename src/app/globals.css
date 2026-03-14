@@ -4,7 +4,7 @@
   --paper-shadow: #e7ddd0;
   --ink: #16171a;
   --ink-soft: #54585f;
-  --ink-faint: #7e837f;
+  --ink-faint: #656966;
   --line: rgba(22, 23, 26, 0.12);
   --line-strong: rgba(22, 23, 26, 0.2);
   --accent-cool: #8bb7bc;
@@ -17,6 +17,7 @@
   --radius-lg: 1.6rem;
   --radius-md: 1rem;
   --transition-base: 220ms cubic-bezier(0.22, 1, 0.36, 1);
+  --transition-slow: 500ms cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 html,

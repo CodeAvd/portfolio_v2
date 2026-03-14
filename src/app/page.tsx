@@ -33,8 +33,6 @@ export default function Home() {
     profileMedia,
     hero,
     nav,
-    approach,
-    proof,
     cases,
     builds,
     strengths,
@@ -132,6 +130,14 @@ export default function Home() {
                 <p className={styles.profileLabel}>Recruiter read</p>
                 <p className={styles.profileText}>{hero.positioning}</p>
                 <p className={styles.profileAvailability}>{hero.availability}</p>
+                <a 
+                  className={styles.profileGithub} 
+                  href={meta.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  github.com/CodeAvd
+                </a>
               </div>
 
               <div className={styles.heroSignals}>
@@ -149,42 +155,7 @@ export default function Home() {
         </Reveal>
       </section>
 
-      <Reveal className={styles.section} id="approach" delay={0.04}>
-        <div className={styles.sectionHeader}>
-          <p className={styles.sectionEyebrow}>{approach.eyebrow}</p>
-          <h2 className={styles.sectionTitle}>{approach.title}</h2>
-        </div>
-
-        <div className={styles.approachGrid}>
-          {approach.paragraphs.map((paragraph) => (
-            <p key={paragraph} className={styles.approachParagraph}>
-              {paragraph}
-            </p>
-          ))}
-        </div>
-      </Reveal>
-
-      <Reveal className={styles.section} delay={0.08}>
-        <div className={styles.sectionHeader}>
-          <p className={styles.sectionEyebrow}>{proof.eyebrow}</p>
-          <div>
-            <h2 className={styles.sectionTitle}>{proof.title}</h2>
-            <p className={styles.sectionIntro}>{proof.intro}</p>
-          </div>
-        </div>
-
-        <div className={styles.proofGrid}>
-          {proof.metrics.map((metric) => (
-            <article key={metric.label} className={styles.metricCard}>
-              <p className={styles.metricLabel}>{metric.label}</p>
-              <p className={styles.metricValue}>{metric.value}</p>
-              <p className={styles.metricNote}>{metric.note}</p>
-            </article>
-          ))}
-        </div>
-      </Reveal>
-
-      <Reveal className={styles.section} id="cases" delay={0.12}>
+      <Reveal className={styles.section} id="cases" delay={0.06}>
         <div className={styles.sectionHeader}>
           <p className={styles.sectionEyebrow}>{cases.eyebrow}</p>
           <div>
@@ -194,14 +165,17 @@ export default function Home() {
         </div>
 
         <div className={styles.casesGrid}>
-          {siteContent.caseStudies.map((caseStudy) => (
-            <article key={caseStudy.slug} className={styles.caseCard}>
-              <div className={styles.caseVisual}>
+          {siteContent.caseStudies.map((caseStudy, index) => (
+            <article 
+              key={caseStudy.slug} 
+              className={index === 0 ? styles.caseCardFeatured : styles.caseCardSecondary}
+            >
+              <div className={index === 0 ? styles.caseVisualFeatured : styles.caseVisual}>
                 <Image
                   src={caseStudy.previewImage}
                   alt={`${caseStudy.title} preview`}
                   fill
-                  sizes="(max-width: 900px) 100vw, 46vw"
+                  sizes={index === 0 ? "(max-width: 900px) 100vw, 56vw" : "(max-width: 900px) 100vw, 40vw"}
                   className={styles.caseImage}
                 />
               </div>
@@ -212,9 +186,9 @@ export default function Home() {
                   <p className={styles.caseEyebrow}>{caseStudy.eyebrow}</p>
                 </div>
 
-                <h3 className={styles.caseTitle}>{caseStudy.title}</h3>
+                <h3 className={index === 0 ? styles.caseTitleFeatured : styles.caseTitle}>{caseStudy.title}</h3>
                 <p className={styles.caseSummary}>{caseStudy.summary}</p>
-                <p className={styles.caseOutcome}>{caseStudy.outcome}</p>
+                {index === 0 && <p className={styles.caseOutcome}>{caseStudy.outcome}</p>}
 
                 <div className={styles.caseTags}>
                   {caseStudy.tags.map((tag) => (
@@ -233,7 +207,7 @@ export default function Home() {
         </div>
       </Reveal>
 
-      <Reveal className={styles.section} id="builds" delay={0.14}>
+      <Reveal className={styles.section} id="builds" delay={0.10}>
         <div className={styles.sectionHeader}>
           <p className={styles.sectionEyebrow}>{builds.eyebrow}</p>
           <div>
@@ -275,7 +249,7 @@ export default function Home() {
         </div>
       </Reveal>
 
-      <Reveal className={styles.section} id="strengths" delay={0.16}>
+      <Reveal className={styles.section} id="strengths" delay={0.14}>
         <div className={styles.sectionHeader}>
           <p className={styles.sectionEyebrow}>{strengths.eyebrow}</p>
           <div>
