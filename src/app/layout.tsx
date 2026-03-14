@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   metadataBase: siteUrl,
   applicationName: "Grigorii Portfolio",
   title: {
-    default: "Grigorii | Hybrid Operator Portfolio",
+    default: "Grigorii | AI-Enabled Support Systems Operator",
     template: "%s | Grigorii",
   },
   description: siteContent.description,
@@ -32,15 +32,20 @@ export const metadata: Metadata = {
   creator: siteContent.meta.name,
   publisher: siteContent.meta.name,
   keywords: [
+    "technical support",
     "support operations",
-    "portfolio",
-    "customer feedback",
+    "workflow automation",
+    "escalation management",
+    "incident handling",
+    "ai automation",
+    "customer success",
+    "product-facing operations",
     "support systems",
-    "product operations",
+    "customer feedback",
     "case studies",
   ],
   openGraph: {
-    title: "Grigorii | Hybrid Operator Portfolio",
+    title: "Grigorii | AI-Enabled Support Systems Operator",
     description: siteContent.description,
     url: absoluteUrl("/"),
     siteName: siteContent.meta.name,
@@ -49,7 +54,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Grigorii | Hybrid Operator Portfolio",
+    title: "Grigorii | AI-Enabled Support Systems Operator",
     description: siteContent.description,
   },
 };

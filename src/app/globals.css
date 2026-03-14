@@ -93,6 +93,13 @@ body:has([data-case-page]) {
     linear-gradient(180deg, #f9f4ed, #f1e9df);
 }
 
+body:has([data-resume-page]) {
+  background:
+    radial-gradient(circle at top left, rgba(152, 201, 201, 0.16), transparent 20%),
+    radial-gradient(circle at 82% 12%, rgba(221, 179, 149, 0.16), transparent 22%),
+    linear-gradient(180deg, #faf6ef, #f2eae1);
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
@@ -104,5 +111,19 @@ body:has([data-case-page]) {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
+  }
+}
+
+@media print {
+  @page {
+    margin: 14mm;
+  }
+
+  body {
+    background: #fff !important;
+  }
+
+  body::before {
+    display: none;
   }
 }

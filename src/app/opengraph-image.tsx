@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Grigorii portfolio cover image";
+export const alt = "Grigorii support systems portfolio cover image";
 export const size = {
   width: 1200,
   height: 630,
@@ -47,21 +47,21 @@ export default function OpenGraphImage() {
           }}
         >
           <span>Grigorii</span>
-          <span>Hybrid operator / builder</span>
+          <span>Support systems operator</span>
         </div>
 
         <div
           style={{
             display: "flex",
             position: "relative",
-            maxWidth: 880,
-            fontSize: 96,
-            lineHeight: 0.95,
+            maxWidth: 900,
+            fontSize: 84,
+            lineHeight: 0.93,
             fontWeight: 700,
             letterSpacing: "-0.07em",
           }}
         >
-          Support signals become calmer systems and better product decisions.
+          AI-enabled support systems operator.
         </div>
 
         <div
@@ -75,14 +75,14 @@ export default function OpenGraphImage() {
           <div
             style={{
               display: "flex",
-              maxWidth: 700,
-              fontSize: 32,
+              maxWidth: 760,
+              fontSize: 30,
               lineHeight: 1.35,
               color: "#54585f",
             }}
           >
-            Support systems, feedback intelligence, and product-facing execution
-            packaged as public case studies.
+            Technical support, escalation, workflow automation, and public-safe
+            proof packaged to read clearly for recruiters.
           </div>
 
           <div

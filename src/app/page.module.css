@@ -11,11 +11,11 @@
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
-  gap: 1.5rem;
+  gap: 1.4rem;
   padding: 1rem 1.25rem;
   border: 1px solid rgba(22, 23, 26, 0.08);
   border-radius: 999px;
-  background: rgba(251, 248, 243, 0.76);
+  background: rgba(251, 248, 243, 0.78);
   backdrop-filter: blur(16px);
   box-shadow: 0 10px 40px rgba(92, 79, 66, 0.08);
 }
@@ -33,7 +33,7 @@
 }
 
 .brandRole {
-  max-width: 26rem;
+  max-width: 30rem;
   color: var(--ink-soft);
   font-size: 0.82rem;
   line-height: 1.35;
@@ -47,59 +47,73 @@
 }
 
 .navLink,
-.contactButton {
+.contactButton,
+.buildLink,
+.contactValue {
   position: relative;
+  transition: color var(--transition-base);
+}
+
+.navLink,
+.contactButton {
   color: var(--ink-soft);
   font-family: var(--font-mono), monospace;
   font-size: 0.74rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  transition: color var(--transition-base);
 }
 
 .navLink::after,
-.contactButton::after {
+.contactButton::after,
+.buildLink::after,
+.contactValue::after {
   content: "";
   position: absolute;
   left: 0;
-  bottom: -0.2rem;
+  bottom: -0.18rem;
   width: 100%;
   height: 1px;
-  background: var(--ink);
+  background: currentColor;
   transform: scaleX(0);
   transform-origin: left;
   transition: transform var(--transition-base);
 }
 
 .navLink:hover,
-.contactButton:hover {
+.contactButton:hover,
+.buildLink:hover,
+.contactValue:hover {
   color: var(--ink);
 }
 
 .navLink:hover::after,
-.contactButton:hover::after {
+.contactButton:hover::after,
+.buildLink:hover::after,
+.contactValue:hover::after {
   transform: scaleX(1);
 }
 
 .hero {
   display: grid;
-  grid-template-columns: minmax(0, 1.06fr) minmax(22rem, 0.94fr);
-  gap: 2.5rem;
-  align-items: end;
+  grid-template-columns: minmax(0, 0.94fr) minmax(0, 1.06fr);
+  gap: clamp(2rem, 4vw, 3.2rem);
+  align-items: center;
   padding-top: clamp(2.75rem, 7vw, 5rem);
 }
 
 .heroCopy {
-  padding: 2rem 0 2rem 0.5rem;
+  padding: 1.25rem 0 1.5rem 0.35rem;
 }
 
 .eyebrow,
 .sectionEyebrow,
-.strengthEyebrow,
 .caseEyebrow,
 .caseNumber,
 .metricLabel,
-.contactLabel {
+.strengthEyebrow,
+.contactLabel,
+.buildEyebrow,
+.profileLabel {
   color: var(--ink-faint);
   font-family: var(--font-mono), monospace;
   font-size: 0.72rem;
@@ -107,20 +121,28 @@
   text-transform: uppercase;
 }
 
-.heroTitle {
-  max-width: 12ch;
+.heroPositioning {
+  max-width: 32rem;
   margin-top: 1rem;
-  font-size: clamp(3.5rem, 8vw, 7rem);
-  line-height: 0.96;
-  letter-spacing: -0.05em;
+  color: var(--ink-soft);
+  font-size: 0.98rem;
+  line-height: 1.6;
+}
+
+.heroTitle {
+  max-width: 11ch;
+  margin-top: 1rem;
+  font-size: clamp(3.5rem, 8vw, 6.5rem);
+  line-height: 0.95;
+  letter-spacing: -0.06em;
 }
 
 .heroDescription {
-  max-width: 36rem;
-  margin-top: 1.5rem;
+  max-width: 34rem;
+  margin-top: 1.45rem;
   color: var(--ink-soft);
-  font-size: 1.1rem;
-  line-height: 1.7;
+  font-size: 1.08rem;
+  line-height: 1.72;
 }
 
 .heroActions {
@@ -155,7 +177,7 @@
 
 .secondaryAction {
   border-color: rgba(22, 23, 26, 0.14);
-  background: rgba(255, 255, 255, 0.42);
+  background: rgba(255, 255, 255, 0.5);
 }
 
 .primaryAction:hover,
@@ -164,20 +186,113 @@
   transform: translateY(-2px);
 }
 
-.heroMeta {
+.heroVisual {
+  min-width: 0;
+}
+
+.profileStage {
+  position: relative;
+  min-height: clamp(36rem, 58vw, 45rem);
+  padding: 1.5rem;
+  border: 1px solid rgba(22, 23, 26, 0.08);
+  border-radius: var(--radius-xl);
+  background:
+    radial-gradient(circle at top left, rgba(139, 183, 188, 0.1), transparent 24%),
+    radial-gradient(circle at 80% 20%, rgba(214, 169, 141, 0.12), transparent 30%),
+    rgba(255, 255, 255, 0.48);
+  box-shadow: var(--shadow-soft);
+  overflow: hidden;
+}
+
+.profileBackdrop {
+  position: absolute;
+  inset: -12% -6% 12% 6%;
+  opacity: 0.88;
+  pointer-events: none;
+}
+
+.profilePhotoFrame {
+  position: relative;
+  z-index: 1;
+  width: min(100%, 33rem);
+  aspect-ratio: 0.78;
+  margin: 2rem 2rem 0 auto;
+  overflow: hidden;
+  border: 1px solid rgba(22, 23, 26, 0.08);
+  border-radius: calc(var(--radius-xl) - 0.35rem);
+  box-shadow: 0 26px 70px rgba(74, 61, 50, 0.2);
+}
+
+.profilePhoto {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profilePanel {
+  position: absolute;
+  left: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 2;
+  width: min(26rem, calc(100% - 3rem));
   display: grid;
-  gap: 0.8rem;
-  max-width: 40rem;
-  margin-top: 1.7rem;
-  padding-top: 1.4rem;
-  border-top: 1px solid rgba(22, 23, 26, 0.12);
+  gap: 1.25rem;
+  padding: 1.25rem;
+  border: 1px solid rgba(22, 23, 26, 0.08);
+  border-radius: calc(var(--radius-lg) + 0.2rem);
+  background: rgba(251, 248, 243, 0.84);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 20px 48px rgba(90, 74, 58, 0.12);
+}
+
+.profilePanelLead {
+  display: grid;
+  gap: 0.55rem;
+}
+
+.profileText {
+  color: var(--ink);
+  font-size: 1rem;
+  line-height: 1.55;
+}
+
+.profileAvailability {
   color: var(--ink-soft);
-  font-size: 0.96rem;
+  font-size: 0.92rem;
   line-height: 1.6;
 }
 
-.heroVisual {
-  min-width: 0;
+.heroSignals {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.signalCard {
+  padding-top: 0.8rem;
+  border-top: 1px solid rgba(22, 23, 26, 0.12);
+}
+
+.signalValue {
+  font-size: clamp(1.55rem, 3vw, 2.15rem);
+  line-height: 1;
+  letter-spacing: -0.05em;
+}
+
+.signalLabel {
+  margin-top: 0.45rem;
+  color: var(--ink-soft);
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+.heroNote {
+  max-width: 38rem;
+  margin-top: 1rem;
+  padding-left: 0.15rem;
+  color: var(--ink-soft);
+  font-size: 0.92rem;
+  line-height: 1.6;
 }
 
 .section {
@@ -217,15 +332,16 @@
 .metricNote,
 .caseSummary,
 .caseOutcome,
+.buildSummary,
+.buildImpact,
 .strengthDescription,
-.contactStatement,
-.contactValue {
+.contactStatement {
   color: var(--ink-soft);
   line-height: 1.7;
 }
 
 .approachParagraph {
-  padding: 1.5rem 1.5rem 0 0;
+  padding: 1.45rem 1.25rem 0 0;
   border-top: 1px solid rgba(22, 23, 26, 0.12);
 }
 
@@ -237,11 +353,12 @@
 
 .metricCard,
 .strengthCard,
-.contactLead {
+.contactLead,
+.buildCard {
   padding: 1.35rem;
   border: 1px solid rgba(22, 23, 26, 0.1);
   border-radius: var(--radius-lg);
-  background: rgba(255, 255, 255, 0.42);
+  background: rgba(255, 255, 255, 0.5);
   box-shadow: var(--shadow-card);
 }
 
@@ -277,7 +394,9 @@
     border-color var(--transition-base);
 }
 
-.caseCard:hover {
+.caseCard:hover,
+.buildCard:hover,
+.strengthCard:hover {
   transform: translateY(-4px);
   border-color: rgba(22, 23, 26, 0.18);
   box-shadow: 0 22px 72px rgba(103, 84, 62, 0.14);
@@ -286,9 +405,9 @@
 .caseVisual {
   position: relative;
   min-height: 22rem;
-  border-radius: calc(var(--radius-xl) - 0.5rem);
   overflow: hidden;
   border: 1px solid rgba(22, 23, 26, 0.08);
+  border-radius: calc(var(--radius-xl) - 0.5rem);
   background: linear-gradient(180deg, rgba(249, 244, 237, 0.9), rgba(237, 230, 220, 0.7));
 }
 
@@ -329,13 +448,16 @@
   max-width: 34rem;
 }
 
-.caseTags {
+.caseTags,
+.buildStacks {
   display: flex;
   gap: 0.65rem;
   flex-wrap: wrap;
 }
 
-.caseTag {
+.caseTag,
+.buildTag,
+.levelBadge {
   display: inline-flex;
   align-items: center;
   min-height: 2rem;
@@ -357,6 +479,49 @@
   border-color: rgba(22, 23, 26, 0.12);
 }
 
+.buildsGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.buildCard {
+  display: grid;
+  gap: 0.95rem;
+  align-content: start;
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base),
+    border-color var(--transition-base);
+}
+
+.buildMeta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.buildTitle,
+.strengthTitle {
+  font-size: clamp(1.45rem, 2.4vw, 2rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+.buildImpact {
+  font-size: 0.95rem;
+}
+
+.buildLink {
+  justify-self: start;
+  color: var(--ink-soft);
+  font-family: var(--font-mono), monospace;
+  font-size: 0.76rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
 .strengthsGrid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -364,15 +529,16 @@
 }
 
 .strengthCard {
-  min-height: 16rem;
+  min-height: 15rem;
+  transition:
+    transform var(--transition-base),
+    box-shadow var(--transition-base),
+    border-color var(--transition-base);
 }
 
 .strengthTitle {
-  max-width: 12ch;
+  max-width: 13ch;
   margin-top: 1.1rem;
-  font-size: 1.7rem;
-  line-height: 1.08;
-  letter-spacing: -0.04em;
 }
 
 .strengthDescription {
@@ -400,7 +566,7 @@
 }
 
 .contactStatement {
-  max-width: 24rem;
+  max-width: 25rem;
   font-size: 1.06rem;
 }
 
@@ -435,7 +601,7 @@
   text-transform: uppercase;
 }
 
-@media (max-width: 1040px) {
+@media (max-width: 1120px) {
   .hero,
   .sectionHeader,
   .caseCard,
@@ -443,6 +609,28 @@
     grid-template-columns: 1fr;
   }
 
+  .heroCopy {
+    padding-left: 0;
+  }
+
+  .sectionTitle,
+  .caseTitle {
+    max-width: none;
+  }
+
+  .profileStage {
+    min-height: 38rem;
+  }
+
+  .approachGrid,
+  .proofGrid,
+  .strengthsGrid,
+  .buildsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 900px) {
   .topbar {
     grid-template-columns: minmax(0, 1fr) auto;
     grid-template-areas:
@@ -466,20 +654,26 @@
     justify-self: end;
   }
 
-  .heroCopy {
-    padding-left: 0;
+  .profileStage {
+    min-height: auto;
+    padding: 1.25rem;
   }
 
-  .heroTitle,
-  .sectionTitle,
-  .caseTitle {
-    max-width: none;
+  .profileBackdrop {
+    inset: -18% -16% 16% -4%;
   }
 
-  .approachGrid,
-  .proofGrid,
-  .strengthsGrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+  .profilePhotoFrame {
+    width: min(100%, 34rem);
+    margin: 1rem auto 0;
+  }
+
+  .profilePanel {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    width: 100%;
+    margin-top: -3rem;
   }
 }
 
@@ -500,7 +694,9 @@
   .proofGrid,
   .approachGrid,
   .strengthsGrid,
-  .contactGrid {
+  .contactGrid,
+  .buildsGrid,
+  .heroSignals {
     grid-template-columns: 1fr;
   }
 
@@ -531,7 +727,9 @@
   }
 
   .navLink,
-  .contactButton {
+  .contactButton,
+  .buildLink,
+  .contactValue {
     font-size: 0.68rem;
   }
 
@@ -543,19 +741,25 @@
 
   .heroCopy {
     padding: 0;
+    order: 1;
+  }
+
+  .heroVisual {
+    order: -1;
   }
 
   .heroTitle {
-    max-width: 8.6ch;
-    margin-top: 0.7rem;
-    font-size: clamp(2.7rem, 15vw, 4.4rem);
-    line-height: 0.93;
+    max-width: 7.2ch;
+    margin-top: 0.75rem;
+    font-size: clamp(2.45rem, 12.4vw, 4rem);
+    line-height: 0.91;
   }
 
-  .heroDescription {
-    margin-top: 1rem;
-    font-size: 0.98rem;
-    line-height: 1.6;
+  .heroDescription,
+  .heroPositioning {
+    margin-top: 0.95rem;
+    font-size: 0.96rem;
+    line-height: 1.62;
   }
 
   .heroActions {
@@ -572,11 +776,33 @@
     min-height: 3rem;
   }
 
-  .heroMeta {
-    gap: 0.6rem;
-    margin-top: 1.25rem;
-    padding-top: 1rem;
-    font-size: 0.9rem;
+  .profileStage,
+  .metricCard,
+  .strengthCard,
+  .contactLead,
+  .buildCard,
+  .caseCard {
+    padding: 1rem;
+  }
+
+  .profileBackdrop {
+    inset: -24% -35% 24% -10%;
+    opacity: 0.7;
+  }
+
+  .profilePhotoFrame {
+    width: 100%;
+    aspect-ratio: 0.92;
+    margin: 0;
+  }
+
+  .profilePanel {
+    margin-top: -1.2rem;
+  }
+
+  .heroNote {
+    margin-top: 0.9rem;
+    font-size: 0.88rem;
   }
 
   .section {
@@ -597,19 +823,8 @@
     font-size: 0.95rem;
   }
 
-  .approachParagraph,
-  .metricCard,
-  .strengthCard,
-  .contactLead,
-  .caseCard {
+  .approachParagraph {
     padding-right: 0;
-  }
-
-  .metricCard,
-  .strengthCard,
-  .contactLead,
-  .caseCard {
-    padding: 1rem;
   }
 
   .caseVisual {
@@ -618,6 +833,11 @@
 
   .caseBody {
     gap: 0.8rem;
+  }
+
+  .buildMeta {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
   .contactItem {

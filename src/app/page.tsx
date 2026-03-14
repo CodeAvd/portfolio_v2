@@ -11,9 +11,36 @@ function isExternalHref(href: string) {
   return href.startsWith("http") || href.startsWith("mailto:");
 }
 
+function isInternalRouteHref(href: string) {
+  return href.startsWith("/") && !href.startsWith("//");
+}
+
+function proofLevelLabel(level: string) {
+  if (level === "core") {
+    return "Core proof";
+  }
+
+  if (level === "working-knowledge") {
+    return "Working knowledge";
+  }
+
+  return "Shipped build";
+}
+
 export default function Home() {
-  const { meta, hero, nav, approach, proof, cases, strengths, contact, footer } =
-    siteContent;
+  const {
+    meta,
+    profileMedia,
+    hero,
+    nav,
+    approach,
+    proof,
+    cases,
+    builds,
+    strengths,
+    contact,
+    footer,
+  } = siteContent;
 
   return (
     <main className={styles.page}>
@@ -24,11 +51,17 @@ export default function Home() {
         </Link>
 
         <nav className={styles.nav} aria-label="Primary">
-          {nav.map((item) => (
-            <a key={item.href} className={styles.navLink} href={item.href}>
-              {item.label}
-            </a>
-          ))}
+          {nav.map((item) =>
+            isInternalRouteHref(item.href) ? (
+              <Link key={item.href} className={styles.navLink} href={item.href}>
+                {item.label}
+              </Link>
+            ) : (
+              <a key={item.href} className={styles.navLink} href={item.href}>
+                {item.label}
+              </a>
+            ),
+          )}
         </nav>
 
         <a className={styles.contactButton} href={`mailto:${meta.email}`}>
@@ -39,35 +72,80 @@ export default function Home() {
       <section className={styles.hero}>
         <Reveal className={styles.heroCopy}>
           <p className={styles.eyebrow}>{hero.eyebrow}</p>
+          <p className={styles.heroPositioning}>{hero.positioning}</p>
           <h1 className={styles.heroTitle}>{hero.title}</h1>
           <p className={styles.heroDescription}>{hero.description}</p>
 
           <div className={styles.heroActions}>
-            {hero.ctas.map((cta) => (
-              <a
-                key={cta.label}
-                className={
-                  cta.variant === "primary"
-                    ? styles.primaryAction
-                    : styles.secondaryAction
-                }
-                href={cta.href}
-                target={isExternalHref(cta.href) ? "_blank" : undefined}
-                rel={isExternalHref(cta.href) ? "noopener noreferrer" : undefined}
-              >
-                {cta.label}
-              </a>
-            ))}
-          </div>
-
-          <div className={styles.heroMeta}>
-            <p>{hero.availability}</p>
-            <p>{hero.note}</p>
+            {hero.ctas.map((cta) =>
+              isInternalRouteHref(cta.href) ? (
+                <Link
+                  key={cta.label}
+                  className={
+                    cta.variant === "primary"
+                      ? styles.primaryAction
+                      : styles.secondaryAction
+                  }
+                  href={cta.href}
+                >
+                  {cta.label}
+                </Link>
+              ) : (
+                <a
+                  key={cta.label}
+                  className={
+                    cta.variant === "primary"
+                      ? styles.primaryAction
+                      : styles.secondaryAction
+                  }
+                  href={cta.href}
+                  target={isExternalHref(cta.href) ? "_blank" : undefined}
+                  rel={isExternalHref(cta.href) ? "noopener noreferrer" : undefined}
+                >
+                  {cta.label}
+                </a>
+              ),
+            )}
           </div>
         </Reveal>
 
         <Reveal className={styles.heroVisual} delay={0.12}>
-          <AmbientHero />
+          <div className={styles.profileStage}>
+            <div className={styles.profileBackdrop} aria-hidden="true">
+              <AmbientHero />
+            </div>
+
+            <div className={styles.profilePhotoFrame}>
+              <Image
+                src={profileMedia.src}
+                alt={profileMedia.alt}
+                width={profileMedia.width}
+                height={profileMedia.height}
+                priority
+                sizes="(max-width: 720px) 100vw, (max-width: 1040px) 72vw, 34rem"
+                className={styles.profilePhoto}
+              />
+            </div>
+
+            <article className={styles.profilePanel}>
+              <div className={styles.profilePanelLead}>
+                <p className={styles.profileLabel}>Recruiter read</p>
+                <p className={styles.profileText}>{hero.positioning}</p>
+                <p className={styles.profileAvailability}>{hero.availability}</p>
+              </div>
+
+              <div className={styles.heroSignals}>
+                {hero.signals.map((signal) => (
+                  <div key={signal.label} className={styles.signalCard}>
+                    <p className={styles.signalValue}>{signal.value}</p>
+                    <p className={styles.signalLabel}>{signal.label}</p>
+                  </div>
+                ))}
+              </div>
+            </article>
+          </div>
+
+          <p className={styles.heroNote}>{hero.note}</p>
         </Reveal>
       </section>
 
@@ -155,6 +233,48 @@ export default function Home() {
         </div>
       </Reveal>
 
+      <Reveal className={styles.section} id="builds" delay={0.14}>
+        <div className={styles.sectionHeader}>
+          <p className={styles.sectionEyebrow}>{builds.eyebrow}</p>
+          <div>
+            <h2 className={styles.sectionTitle}>{builds.title}</h2>
+            <p className={styles.sectionIntro}>{builds.intro}</p>
+          </div>
+        </div>
+
+        <div className={styles.buildsGrid}>
+          {builds.items.map((item) => (
+            <article key={item.title} className={styles.buildCard}>
+              <div className={styles.buildMeta}>
+                <p className={styles.buildEyebrow}>{item.eyebrow}</p>
+                <span className={styles.levelBadge}>{proofLevelLabel(item.level)}</span>
+              </div>
+
+              <h3 className={styles.buildTitle}>{item.title}</h3>
+              <p className={styles.buildSummary}>{item.summary}</p>
+              <p className={styles.buildImpact}>{item.impact}</p>
+
+              <div className={styles.buildStacks}>
+                {item.stack.map((tag) => (
+                  <span key={tag} className={styles.buildTag}>
+                    {tag}
+                  </span>
+                ))}
+              </div>
+
+              <a
+                className={styles.buildLink}
+                href={item.href}
+                target={isExternalHref(item.href) ? "_blank" : undefined}
+                rel={isExternalHref(item.href) ? "noopener noreferrer" : undefined}
+              >
+                {item.linkLabel}
+              </a>
+            </article>
+          ))}
+        </div>
+      </Reveal>
+
       <Reveal className={styles.section} id="strengths" delay={0.16}>
         <div className={styles.sectionHeader}>
           <p className={styles.sectionEyebrow}>{strengths.eyebrow}</p>
@@ -187,12 +307,12 @@ export default function Home() {
         <div className={styles.contactGrid}>
           <article className={styles.contactLead}>
             <p className={styles.contactStatement}>
-              Cleaner support execution, stronger packaging, and fewer repeated
-              conversations usually come from the same place: clearer structure.
+              Support credibility gets you screened. Systems leverage is what makes
+              the interview loop remember you.
             </p>
-            <a className={styles.primaryAction} href={`mailto:${meta.email}`}>
-              Start a conversation
-            </a>
+            <Link className={styles.primaryAction} href={meta.resumeUrl}>
+              Open public resume
+            </Link>
           </article>
 
           <ul className={styles.contactList}>
@@ -200,16 +320,22 @@ export default function Home() {
               <li key={item.label} className={styles.contactItem}>
                 <span className={styles.contactLabel}>{item.label}</span>
                 {item.href ? (
-                  <a
-                    className={styles.contactValue}
-                    href={item.href}
-                    target={isExternalHref(item.href) ? "_blank" : undefined}
-                    rel={
-                      isExternalHref(item.href) ? "noopener noreferrer" : undefined
-                    }
-                  >
-                    {item.value}
-                  </a>
+                  isInternalRouteHref(item.href) ? (
+                    <Link className={styles.contactValue} href={item.href}>
+                      {item.value}
+                    </Link>
+                  ) : (
+                    <a
+                      className={styles.contactValue}
+                      href={item.href}
+                      target={isExternalHref(item.href) ? "_blank" : undefined}
+                      rel={
+                        isExternalHref(item.href) ? "noopener noreferrer" : undefined
+                      }
+                    >
+                      {item.value}
+                    </a>
+                  )
                 ) : (
                   <span className={styles.contactValue}>{item.value}</span>
                 )}
