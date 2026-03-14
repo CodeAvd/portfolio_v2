@@ -462,10 +462,11 @@
 
 .caseImage {
   object-fit: cover;
-  transition: transform 500ms cubic-bezier(0.22, 1, 0.36, 1);
+  transition: transform var(--transition-slow);
 }
 
-.caseCard:hover .caseImage {
+.caseCardFeatured:hover .caseImage,
+.caseCardSecondary:hover .caseImage {
   transform: scale(1.04);
 }
 
